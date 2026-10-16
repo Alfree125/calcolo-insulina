@@ -1,0 +1,16 @@
+.gradle/
+.kotlin/
+build/
+local.properties
+.idea/
+*.iml
+.DS_Store
+
+# APK e chiavi: l'APK si pubblica nelle Releases, le chiavi non si pubblicano mai
+*.apk
+*.aab
+*.jks
+*.keystore
+
+# Screenshot di lavoro (quelli del README sono in docs/)
+/screenshots/

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Schema colori Material 3 (seed blu), tema scuro -->
+<resources>
+    <color name="md_primary">#FFAAC7FF</color>
+    <color name="md_on_primary">#FF0A305F</color>
+    <color name="md_primary_container">#FF284777</color>
+    <color name="md_on_primary_container">#FFD6E3FF</color>
+    <color name="md_secondary">#FFBEC6DC</color>
+    <color name="md_on_secondary">#FF283141</color>
+    <color name="md_secondary_container">#FF3E4759</color>
+    <color name="md_on_secondary_container">#FFDAE2F9</color>
+    <color name="md_tertiary">#FFDDBCE0</color>
+    <color name="md_on_tertiary">#FF3F2844</color>
+    <color name="md_tertiary_container">#FF573E5C</color>
+    <color name="md_on_tertiary_container">#FFFAD8FD</color>
+    <color name="md_error">#FFFFB4AB</color>
+    <color name="md_on_error">#FF690005</color>
+    <color name="md_error_container">#FF93000A</color>
+    <color name="md_on_error_container">#FFFFDAD6</color>
+    <color name="md_background">#FF111318</color>
+    <color name="md_on_background">#FFE2E2E9</color>
+    <color name="md_surface">#FF111318</color>
+    <color name="md_on_surface">#FFE2E2E9</color>
+    <color name="md_surface_variant">#FF44474E</color>
+    <color name="md_on_surface_variant">#FFC4C6D0</color>
+    <color name="md_outline">#FF8E9099</color>
+    <color name="md_outline_variant">#FF44474E</color>
+    <color name="md_inverse_surface">#FFE2E2E9</color>
+    <color name="md_inverse_on_surface">#FF2E3036</color>
+    <color name="md_inverse_primary">#FF415F91</color>
+    <color name="md_surface_dim">#FF111318</color>
+    <color name="md_surface_bright">#FF37393E</color>
+    <color name="md_surface_container_lowest">#FF0C0E13</color>
+    <color name="md_surface_container_low">#FF191C20</color>
+    <color name="md_surface_container">#FF1D2024</color>
+    <color name="md_surface_container_high">#FF282A2F</color>
+    <color name="md_surface_container_highest">#FF33353A</color>
+
+    <color name="glicemia_ok">#FF81C784</color>
+    <color name="glicemia_alta">#FFFFB95C</color>
+    <color name="glicemia_bassa">#FFFFB4AB</color>
+</resources>

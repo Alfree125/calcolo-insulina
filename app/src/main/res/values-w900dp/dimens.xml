@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margine_laterale">96dp</dimen>
+    <dimen name="altezza_totale">96dp</dimen>
+</resources>

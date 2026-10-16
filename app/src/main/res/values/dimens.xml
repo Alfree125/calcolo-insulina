@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Margine laterale del contenuto: cresce sugli schermi larghi -->
+    <dimen name="margine_laterale">16dp</dimen>
+    <dimen name="spazio_campi">12dp</dimen>
+    <!-- Altezza del numero grande: il testo si adatta (autosize) anche con caratteri ingranditi -->
+    <dimen name="altezza_totale">72dp</dimen>
+    <dimen name="altezza_totale_compatta">48dp</dimen>
+</resources>

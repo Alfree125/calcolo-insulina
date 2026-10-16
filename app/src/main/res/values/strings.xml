@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Calcolo Insulina</string>
+
+    <!-- Schermata principale -->
+    <string name="dose_totale">UI totali</string>
+    <string name="ui_pasto">UI per i CHO</string>
+    <string name="ui_extra">UI extra</string>
+    <string name="placeholder">—</string>
+    <string name="nota_attesa">Dopo aver fatto l\'insulina aspetta 10 minuti prima di mangiare.</string>
+    <string name="pasto">Pasto</string>
+    <string name="azzera">Azzera</string>
+    <string name="cho_totali">CHO totali</string>
+    <string name="glicemia_pre">Glicemia pre pasto</string>
+    <string name="annulla">Annulla</string>
+    <string name="promemoria_alle">Promemoria glicemia alle %1$s</string>
+    <string name="promemoria_annullato">Promemoria annullato</string>
+    <string name="arrotondato">Arrotondato a %1$s UI: %2$s UI</string>
+    <string name="nessun_bolo">Calcolo %1$s UI: nessun bolo</string>
+    <string name="inserisci_valori">Inserisci CHO e glicemia</string>
+    <string name="glicemia_non_valida">Glicemia fuori scala</string>
+    <string name="stato_bassa">Glicemia bassa</string>
+    <string name="stato_in_range">Glicemia nella norma</string>
+    <string name="stato_alta">Glicemia alta</string>
+    <string name="stato_molto_alta">Glicemia molto alta</string>
+
+    <!-- Menu a tendina -->
+    <string name="parametri_personali">Parametri personali</string>
+    <string name="impostazioni">Impostazioni</string>
+
+    <!-- Configurazione -->
+    <string name="benvenuto">Benvenuto</string>
+    <string name="benvenuto_testo">Prima di iniziare imposta i tuoi parametri. Potrai modificarli in seguito dal menu in alto a destra.</string>
+    <string name="rapporto">Rapporto insulina/CHO</string>
+    <string name="fattore">Fattore di sensibilità</string>
+    <string name="target">Glicemia obiettivo</string>
+    <string name="unit_g">g</string>
+    <string name="unit_mgdl">mg/dL</string>
+    <string name="unit_g_ui">g/UI</string>
+    <string name="unit_mgdl_ui">mg/dL/UI</string>
+    <string name="promemoria">Promemoria glicemia</string>
+    <string name="promemoria_testo">Notifica per controllare la glicemia dopo il calcolo</string>
+    <string name="intervallo">Avvisami dopo</string>
+    <string name="arrotondamento">Arrotondamento dose</string>
+    <string name="colori_dinamici">Colori dinamici</string>
+    <string name="colori_dinamici_testo">Usa i colori dello sfondo del telefono</string>
+    <string name="inizia">Inizia</string>
+    <string name="salva">Salva</string>
+    <string name="errore_positivo">Inserisci un valore maggiore di zero</string>
+    <string name="errore_target">Valore tra 70 e 250 mg/dL</string>
+    <string name="permesso_negato">Senza il permesso le notifiche non possono essere inviate</string>
+    <string name="apri_impostazioni">Impostazioni</string>
+
+    <!-- Notifica -->
+    <string name="canale_nome">Promemoria glicemia</string>
+    <string name="notifica_titolo">Controlla la glicemia</string>
+    <string name="notifica_testo">Tempo trascorso dal calcolo della dose di insulina: %1$s.</string>
+</resources>

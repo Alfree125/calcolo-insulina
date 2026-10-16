@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TitoloSezione"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/pasto" />
+
+        <Button
+            android:id="@+id/btn_azzera"
+            style="@style/Widget.Material3.Button.TextButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/azzera"
+            app:icon="@drawable/ic_azzera" />
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/campo_cho"
+        style="@style/Campo"
+        android:layout_marginTop="4dp"
+        android:hint="@string/cho_totali"
+        app:suffixText="@string/unit_g">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/in_cho"
+            style="@style/CampoInput" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/campo_glicemia"
+        style="@style/Campo"
+        android:hint="@string/glicemia_pre"
+        app:endIconDrawable="@drawable/ic_pallino"
+        app:endIconMode="custom"
+        app:suffixText="@string/unit_mgdl">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/in_glicemia"
+            style="@style/CampoInput"
+            android:digits="0123456789"
+            android:imeOptions="actionDone|flagNoExtractUi"
+            android:inputType="number"
+            android:maxLength="3" />
+    </com.google.android.material.textfield.TextInputLayout>
+</LinearLayout>

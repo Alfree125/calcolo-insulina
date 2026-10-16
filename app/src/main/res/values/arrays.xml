@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="intervalli_etichette">
+        <item>30 minuti</item>
+        <item>1 ora</item>
+        <item>1 ora e 30 minuti</item>
+        <item>2 ore</item>
+        <item>2 ore e 30 minuti</item>
+        <item>3 ore</item>
+        <item>4 ore</item>
+    </string-array>
+    <integer-array name="intervalli_minuti">
+        <item>30</item>
+        <item>60</item>
+        <item>90</item>
+        <item>120</item>
+        <item>150</item>
+        <item>180</item>
+        <item>240</item>
+    </integer-array>
+
+    <string-array name="arrotondamento_etichette">
+        <item>0,5 UI</item>
+        <item>1 UI</item>
+        <item>Nessuno</item>
+    </string-array>
+</resources>
