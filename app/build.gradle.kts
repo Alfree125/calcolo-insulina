@@ -1,5 +1,19 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
+}
+
+// Chiave di firma release: vive fuori dal repository. Il percorso del file .properties
+// (storeFile, storePassword, keyAlias, keyPassword) si puo' cambiare con -PfirmaRelease=...
+// o con la variabile d'ambiente CALCOLO_INSULINA_FIRMA.
+val fileFirma = file(
+    providers.gradleProperty("firmaRelease")
+        .orElse(providers.environmentVariable("CALCOLO_INSULINA_FIRMA"))
+        .getOrElse(System.getProperty("user.home") + "/android-keys/calcolo-insulina.properties")
+)
+val firma = Properties().apply {
+    if (fileFirma.exists()) fileFirma.inputStream().use { load(it) }
 }
 
 android {
@@ -10,8 +24,19 @@ android {
         applicationId = "com.calcoloinsulina.app"
         minSdk = 23 // Android 6.0
         targetSdk = 37
-        versionCode = 2
-        versionName = "2.0"
+        versionCode = 3
+        versionName = "2.0.1"
+    }
+
+    signingConfigs {
+        if (fileFirma.exists()) {
+            create("release") {
+                storeFile = file(firma.getProperty("storeFile"))
+                storePassword = firma.getProperty("storePassword")
+                keyAlias = firma.getProperty("keyAlias")
+                keyPassword = firma.getProperty("keyPassword")
+            }
+        }
     }
 
     buildTypes {
@@ -19,7 +44,10 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.findByName("release") ?: run {
+                logger.warn("Chiave release non trovata ($fileFirma): APK firmato con la chiave debug")
+                signingConfigs.getByName("debug")
+            }
         }
     }
 

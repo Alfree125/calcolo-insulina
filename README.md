@@ -14,6 +14,8 @@ Scarica l'ultimo `CalcoloInsulina.apk` dalla pagina [Releases](https://github.co
 
 Supporta da **Android 6.0** (API 23) ad **Android 17** (API 37).
 
+> **Se hai installato la versione 2.0**, disinstallala prima di installare la 2.0.1 o successive: dalla 2.0.1 l'app è firmata con una chiave diversa e Android non permette l'aggiornamento diretto. Dovrai reinserire i parametri personali.
+
 Al primo avvio l'app chiede i parametri personali. Se attivi il promemoria, su Android 13 e successivi ti chiede anche il permesso per le notifiche.
 
 ## Come calcola
@@ -50,6 +52,8 @@ Servono JDK 17 e l'Android SDK con la piattaforma `android-37.0`.
 ```
 
 L'APK viene generato in `app/build/outputs/apk/release/`.
+
+La chiave di firma non è nel repository. La build la legge da `~/android-keys/calcolo-insulina.properties` (con `storeFile`, `storePassword`, `keyAlias`, `keyPassword`). Puoi indicare un altro file con `-PfirmaRelease=percorso` o con la variabile d'ambiente `CALCOLO_INSULINA_FIRMA`. Se il file non c'è, l'APK viene firmato con la chiave debug locale e non si potrà installare sopra le release ufficiali.
 
 ## Avvertenza
 
