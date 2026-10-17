@@ -43,17 +43,19 @@ La correzione può essere negativa quando la glicemia è sotto l'obiettivo: in q
 - Tema chiaro e scuro, colori dinamici su Android 12+.
 - Layout a due colonne su tablet, pieghevoli e in orizzontale.
 
-## Beta: stima dei CHO da foto
+## Beta: CHO del pasto dal database alimenti
 
-Nelle versioni beta (`2.1.0-beta.x`, pagina [Releases](https://github.com/Alfree125/calcolo-insulina/releases)) puoi fotografare il pasto e ottenere una stima dei carboidrati fatta da Claude, il modello di intelligenza artificiale di Anthropic.
+<p align="center"><img src="docs/screenshots/pasto.png" width="260" alt="CHO del pasto"></p>
 
-- La funzione è **disattivata** di default. Si attiva da menu ⋮ → Impostazioni → Funzioni beta.
-- Serve una **tua chiave API Anthropic**, da creare su [console.anthropic.com](https://console.anthropic.com/settings/keys). Ogni analisi ha un piccolo costo sul tuo account; il modello si sceglie nelle impostazioni (Opus 5.5 più preciso, Haiku 5.5 più economico).
-- La chiave è salvata cifrata con l'Android Keystore e resta solo sul telefono.
-- La foto viene inviata ad Anthropic solo quando premi **Analizza**.
-- Il risultato mostra gli alimenti riconosciuti, il peso stimato, i CHO e un livello di affidabilità. Nel campo CHO finisce solo se premi **Usa**.
+Nelle versioni beta (`2.1.0-beta.x`, pagina [Releases](https://github.com/Alfree125/calcolo-insulina/releases)) l'icona con coltello e forchetta nel campo CHO apre il calcolo dei carboidrati del pasto. Funziona tutto sul telefono, senza Internet: l'app non ha il permesso di accesso alla rete.
 
-> La stima da foto può sbagliare, soprattutto su porzioni nascoste o piatti fondi. Usala come aiuto e, quando puoi, pesa gli alimenti. Puoi aggiungere dettagli (es. "pasta 80 g a crudo") per una stima più precisa.
+- Cerca un alimento (anche per sinonimo: "spaghetti" trova la pasta) e inserisci i grammi, oppure tocca la porzione tipica.
+- Aggiungi più alimenti: l'app somma i CHO e con **Usa** li inserisce nel campo CHO.
+- Il database locale (SQLite) contiene circa 130 alimenti comuni italiani, con i carboidrati per 100 g e una porzione tipica ([elenco](app/src/main/res/raw/alimenti.csv)).
+- Con **Nuovo alimento** aggiungi i tuoi prodotti copiando i carboidrati per 100 g dall'etichetta. Tienili premuti nell'elenco per modificarli o eliminarli.
+- Gli alimenti che usi più spesso salgono in cima all'elenco.
+
+> I valori del database sono medie indicative: per i prodotti confezionati fa fede l'etichetta. Pesa gli alimenti quando puoi.
 
 ## Compilare dai sorgenti
 
@@ -64,8 +66,6 @@ Servono JDK 17 e l'Android SDK con la piattaforma `android-37.0`.
 ```
 
 L'APK viene generato in `app/build/outputs/apk/release/`.
-
-Per provare la stima da foto senza una chiave reale puoi puntare l'app a un server di prova con `-PapiBase=http://10.0.2.2:8787` (dall'emulatore, 10.0.2.2 è il PC). Le build di debug accettano HTTP solo verso quell'indirizzo.
 
 La chiave di firma non è nel repository. La build la legge da `~/android-keys/calcolo-insulina.properties` (con `storeFile`, `storePassword`, `keyAlias`, `keyPassword`). Puoi indicare un altro file con `-PfirmaRelease=percorso` o con la variabile d'ambiente `CALCOLO_INSULINA_FIRMA`. Se il file non c'è, l'APK viene firmato con la chiave debug locale e non si potrà installare sopra le release ufficiali.
 

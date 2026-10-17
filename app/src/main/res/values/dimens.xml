@@ -6,5 +6,4 @@
     <!-- Altezza del numero grande: il testo si adatta (autosize) anche con caratteri ingranditi -->
     <dimen name="altezza_totale">72dp</dimen>
     <dimen name="altezza_totale_compatta">48dp</dimen>
-    <dimen name="altezza_anteprima">320dp</dimen>
 </resources>

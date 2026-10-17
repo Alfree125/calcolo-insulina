@@ -24,16 +24,8 @@ android {
         applicationId = "com.calcoloinsulina.app"
         minSdk = 23 // Android 6.0
         targetSdk = 37
-        versionCode = 4
-        versionName = "2.1.0-beta.1"
-
-        // Indirizzo dell'API di Anthropic; nei test si punta a un server di prova con -PapiBase=...
-        val apiBase = providers.gradleProperty("apiBase").getOrElse("https://api.anthropic.com")
-        buildConfigField("String", "API_BASE", "\"$apiBase\"")
-    }
-
-    buildFeatures {
-        buildConfig = true
+        versionCode = 5
+        versionName = "2.1.0-beta.2"
     }
 
     signingConfigs {
@@ -70,5 +62,5 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.8.0")
     implementation("androidx.activity:activity:1.13.0")
     implementation("androidx.core:core:1.19.1")
-    implementation("androidx.exifinterface:exifinterface:1.4.2")
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
 }

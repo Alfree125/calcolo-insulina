@@ -19,17 +19,6 @@
         <item>240</item>
     </integer-array>
 
-    <string-array name="modelli_etichette">
-        <item>Claude Opus 5.5 (più preciso)</item>
-        <item>Claude Sonnet 5.5</item>
-        <item>Claude Haiku 5.5 (più economico)</item>
-    </string-array>
-    <string-array name="modelli_id" translatable="false">
-        <item>claude-opus-5-5</item>
-        <item>claude-sonnet-5-5</item>
-        <item>claude-haiku-5-5</item>
-    </string-array>
-
     <string-array name="arrotondamento_etichette">
         <item>0,5 UI</item>
         <item>1 UI</item>

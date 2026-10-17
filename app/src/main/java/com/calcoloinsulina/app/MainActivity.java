@@ -30,7 +30,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private static final long ATTESA_PROGRAMMAZIONE_MS = 3000;
 
     private EditText inCho, inGlicemia;
-    private TextInputLayout campoGlicemia, campoCho;
+    private TextInputLayout campoGlicemia;
     private TextView outTotale, outArrotondato, outPasto, outExtra, testoPromemoria;
     private View root, resultChips, cardPromemoria;
     private SharedPreferences prefs;
@@ -68,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
     private final DecimalFormat fmt =
             new DecimalFormat("0.#", DecimalFormatSymbols.getInstance(Locale.ITALY));
 
-    /** CHO stimati dalla foto e confermati dall'utente nella schermata di stima. */
-    private final ActivityResultLauncher<Intent> stimaFoto =
+    /** CHO calcolati dagli alimenti del database locale. */
+    private final ActivityResultLauncher<Intent> calcolaPasto =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), r -> {
                 if (r.getResultCode() != RESULT_OK || r.getData() == null) return;
-                double cho = r.getData().getDoubleExtra(StimaActivity.EXTRA_CHO, -1);
+                double cho = r.getData().getDoubleExtra(PastoActivity.EXTRA_CHO, -1);
                 if (cho < 0) return;
                 inCho.setText(fmt.format(cho));
                 Snackbar.make(root, R.string.cho_inseriti, Snackbar.LENGTH_LONG).show();
@@ -93,13 +92,13 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        Prefs.rimuoviDatiStimaFoto(this);
         setContentView(R.layout.activity_main);
 
         root = findViewById(R.id.root);
         inCho = findViewById(R.id.in_cho);
         inGlicemia = findViewById(R.id.in_glicemia);
         campoGlicemia = findViewById(R.id.campo_glicemia);
-        campoCho = findViewById(R.id.campo_cho);
         outTotale = findViewById(R.id.out_totale);
         outArrotondato = findViewById(R.id.out_arrotondato);
         outPasto = findViewById(R.id.out_pasto);
@@ -149,6 +148,10 @@ public class MainActivity extends AppCompatActivity {
         inCho.addTextChangedListener(ricalcola);
         inGlicemia.addTextChangedListener(ricalcola);
 
+        TextInputLayout campoCho = findViewById(R.id.campo_cho);
+        campoCho.setEndIconOnClickListener(
+                v -> calcolaPasto.launch(new Intent(this, PastoActivity.class)));
+
         campoGlicemia.setEndIconOnClickListener(v -> {
             if (statoGlicemia != null) Snackbar.make(root, statoGlicemia, Snackbar.LENGTH_SHORT).show();
         });
@@ -171,40 +174,7 @@ public class MainActivity extends AppCompatActivity {
         }
         aggiorna();
         mostraPromemoria();
-        aggiornaIconaFoto();
         prefs.registerOnSharedPreferenceChangeListener(ascoltaPromemoria);
-    }
-
-    /** Icona fotocamera nel campo CHO, solo con la funzione beta attiva. */
-    private void aggiornaIconaFoto() {
-        if (!prefs.getBoolean(Prefs.FOTO_ATTIVA, false)) {
-            campoCho.setEndIconMode(TextInputLayout.END_ICON_NONE);
-            return;
-        }
-        campoCho.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
-        campoCho.setEndIconDrawable(R.drawable.ic_fotocamera);
-        campoCho.setEndIconContentDescription(R.string.stima_da_foto);
-        campoCho.setEndIconOnClickListener(v -> scegliFoto());
-    }
-
-    private void scegliFoto() {
-        if (Segreti.chiaveApi(this) == null) {
-            Snackbar.make(root, R.string.chiave_mancante, Snackbar.LENGTH_LONG)
-                    .setAction(R.string.impostazioni, v -> startActivity(
-                            new Intent(this, ImpostazioniActivity.class)
-                                    .putExtra(ImpostazioniActivity.EXTRA_SEZIONE,
-                                            ImpostazioniActivity.SEZIONE_BETA)))
-                    .show();
-            return;
-        }
-        String[] origini = {StimaActivity.ORIGINE_FOTOCAMERA, StimaActivity.ORIGINE_GALLERIA};
-        new MaterialAlertDialogBuilder(this)
-                .setTitle(R.string.stima_titolo_beta)
-                .setItems(new CharSequence[]{getString(R.string.scatta_foto), getString(R.string.scegli_galleria)},
-                        (d, i) -> stimaFoto.launch(new Intent(this, StimaActivity.class)
-                                .putExtra(StimaActivity.EXTRA_ORIGINE, origini[i])))
-                .setNegativeButton(R.string.annulla, null)
-                .show();
     }
 
     @Override
