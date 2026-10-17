@@ -1,6 +1,6 @@
 # Calcolo Insulina
 
-App Android per calcolare il bolo di insulina del pasto e la correzione in base alla glicemia, con interfaccia Material 3.
+App Android per calcolare il bolo di insulina del pasto e la correzione in base alla glicemia.
 
 <p align="center">
   <img src="docs/screenshots/principale.png" width="260" alt="Schermata principale">
