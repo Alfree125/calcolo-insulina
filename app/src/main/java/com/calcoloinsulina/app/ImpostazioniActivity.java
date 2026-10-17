@@ -44,6 +44,7 @@ public class ImpostazioniActivity extends AppCompatActivity {
     static final String EXTRA_SEZIONE = "sezione";
     static final String SEZIONE_PARAMETRI = "parametri";
     static final String SEZIONE_IMPOSTAZIONI = "impostazioni";
+    static final String SEZIONE_BETA = "beta";
 
     private static final float[] PASSI_ARROTONDAMENTO = {0.5f, 1f, 0f};
 
@@ -52,10 +53,14 @@ public class ImpostazioniActivity extends AppCompatActivity {
     private View root;
     private TextInputLayout campoRapporto, campoFattore, campoTarget, campoIntervallo;
     private EditText inRapporto, inFattore, inTarget;
-    private MaterialSwitch switchPromemoria, switchColori;
-    private MaterialAutoCompleteTextView sceltaIntervallo, sceltaArrotondamento;
+    private MaterialSwitch switchPromemoria, switchColori, switchFoto;
+    private MaterialAutoCompleteTextView sceltaIntervallo, sceltaArrotondamento, sceltaModello;
+    private TextInputLayout campoChiave;
+    private EditText inChiave;
+    private View gruppoFoto;
     private int[] minutiIntervalli;
-    private int indiceIntervallo, indiceArrotondamento;
+    private String[] modelli;
+    private int indiceIntervallo, indiceArrotondamento, indiceModello;
 
     private final DecimalFormat fmtParam =
             new DecimalFormat("0.##", DecimalFormatSymbols.getInstance(Locale.ITALY));
@@ -92,6 +97,12 @@ public class ImpostazioniActivity extends AppCompatActivity {
         sceltaIntervallo = findViewById(R.id.scelta_intervallo);
         sceltaArrotondamento = findViewById(R.id.scelta_arrotondamento);
         minutiIntervalli = getResources().getIntArray(R.array.intervalli_minuti);
+        switchFoto = findViewById(R.id.switch_foto);
+        sceltaModello = findViewById(R.id.scelta_modello);
+        campoChiave = findViewById(R.id.campo_chiave);
+        inChiave = findViewById(R.id.in_chiave);
+        gruppoFoto = findViewById(R.id.gruppo_foto);
+        modelli = getResources().getStringArray(R.array.modelli_id);
 
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         if (primoAvvio) {
@@ -117,14 +128,30 @@ public class ImpostazioniActivity extends AppCompatActivity {
         else {
             indiceIntervallo = savedInstanceState.getInt("intervallo");
             indiceArrotondamento = savedInstanceState.getInt("arrotondamento");
+            indiceModello = savedInstanceState.getInt("modello");
         }
 
         rimuoviErroreAllaModifica(inRapporto, campoRapporto);
         rimuoviErroreAllaModifica(inFattore, campoFattore);
         rimuoviErroreAllaModifica(inTarget, campoTarget);
+        rimuoviErroreAllaModifica(inChiave, campoChiave);
 
         sceltaIntervallo.setOnItemClickListener((p, v, pos, id) -> indiceIntervallo = pos);
         sceltaArrotondamento.setOnItemClickListener((p, v, pos, id) -> indiceArrotondamento = pos);
+        sceltaModello.setOnItemClickListener((p, v, pos, id) -> indiceModello = pos);
+
+        findViewById(R.id.riga_foto).setOnClickListener(v -> switchFoto.toggle());
+        switchFoto.setOnCheckedChangeListener((b, attivo) ->
+                gruppoFoto.setVisibility(attivo ? View.VISIBLE : View.GONE));
+        gruppoFoto.setVisibility(switchFoto.isChecked() ? View.VISIBLE : View.GONE);
+        findViewById(R.id.btn_crea_chiave).setOnClickListener(v -> {
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://console.anthropic.com/settings/keys")));
+            } catch (android.content.ActivityNotFoundException ignored) {
+                // nessun browser installato
+            }
+        });
 
         findViewById(R.id.riga_promemoria).setOnClickListener(v -> switchPromemoria.toggle());
         switchPromemoria.setOnCheckedChangeListener((b, attivo) -> {
@@ -146,9 +173,11 @@ public class ImpostazioniActivity extends AppCompatActivity {
         findViewById(R.id.btn_salva).setOnClickListener(v -> salva());
 
         String sezione = getIntent().getStringExtra(EXTRA_SEZIONE);
-        if (SEZIONE_IMPOSTAZIONI.equals(sezione) && savedInstanceState == null) {
+        if (savedInstanceState == null
+                && (SEZIONE_IMPOSTAZIONI.equals(sezione) || SEZIONE_BETA.equals(sezione))) {
             NestedScrollView scroll = findViewById(R.id.scroll);
-            View titolo = findViewById(R.id.sezione_impostazioni);
+            View titolo = findViewById(SEZIONE_BETA.equals(sezione)
+                    ? R.id.sezione_beta : R.id.sezione_impostazioni);
             scroll.post(() -> scroll.scrollTo(0, titolo.getTop()));
         }
     }
@@ -158,6 +187,7 @@ public class ImpostazioniActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putInt("intervallo", indiceIntervallo);
         outState.putInt("arrotondamento", indiceArrotondamento);
+        outState.putInt("modello", indiceModello);
     }
 
     private void caricaValori() {
@@ -187,6 +217,17 @@ public class ImpostazioniActivity extends AppCompatActivity {
         String[] arrotondamenti = getResources().getStringArray(R.array.arrotondamento_etichette);
         sceltaIntervallo.setText(intervalli[indiceIntervallo], false);
         sceltaArrotondamento.setText(arrotondamenti[indiceArrotondamento], false);
+
+        switchFoto.setChecked(prefs.getBoolean(Prefs.FOTO_ATTIVA, false));
+        String chiave = Segreti.chiaveApi(this);
+        if (chiave != null) inChiave.setText(chiave);
+        String modello = prefs.getString(Prefs.MODELLO_AI, Prefs.MODELLO_DEFAULT);
+        indiceModello = 0;
+        for (int i = 0; i < modelli.length; i++) {
+            if (modelli[i].equals(modello)) indiceModello = i;
+        }
+        sceltaModello.setText(
+                getResources().getStringArray(R.array.modelli_etichette)[indiceModello], false);
     }
 
     private void salva() {
@@ -212,6 +253,21 @@ public class ImpostazioniActivity extends AppCompatActivity {
             scroll.smoothScrollTo(0, findViewById(R.id.sezione_parametri).getTop());
             return;
         }
+        String chiave = inChiave.getText().toString().trim();
+        if (switchFoto.isChecked() && chiave.isEmpty()) {
+            campoChiave.setError(getString(R.string.errore_chiave));
+            NestedScrollView scroll = findViewById(R.id.scroll);
+            scroll.smoothScrollTo(0, findViewById(R.id.sezione_beta).getTop());
+            return;
+        }
+        if (!chiave.equals(Segreti.chiaveApi(this))) {
+            try {
+                Segreti.salvaChiaveApi(this, chiave);
+            } catch (IllegalStateException e) {
+                campoChiave.setError(getString(R.string.errore_salvataggio_chiave));
+                return;
+            }
+        }
 
         boolean promemoria = switchPromemoria.isChecked();
         prefs.edit()
@@ -222,6 +278,8 @@ public class ImpostazioniActivity extends AppCompatActivity {
                 .putInt(Prefs.PROMEMORIA_MINUTI, minutiIntervalli[indiceIntervallo])
                 .putFloat(Prefs.ARROTONDAMENTO, PASSI_ARROTONDAMENTO[indiceArrotondamento])
                 .putBoolean(Prefs.COLORI_DINAMICI, switchColori.isChecked())
+                .putBoolean(Prefs.FOTO_ATTIVA, switchFoto.isChecked())
+                .putString(Prefs.MODELLO_AI, modelli[indiceModello])
                 .putBoolean(Prefs.CONFIGURATO, true)
                 .apply();
         if (!promemoria) Promemoria.annulla(this);

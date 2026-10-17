@@ -51,6 +51,40 @@
     <string name="permesso_negato">Senza il permesso le notifiche non possono essere inviate</string>
     <string name="apri_impostazioni">Impostazioni</string>
 
+    <!-- Stima CHO da foto (beta) -->
+    <string name="beta">Beta</string>
+    <string name="indietro">Indietro</string>
+    <string name="funzioni_beta">Funzioni beta</string>
+    <string name="stima_da_foto">Stima CHO da foto</string>
+    <string name="stima_da_foto_testo">Fotografa il pasto e Claude (Anthropic) stima i carboidrati. Serve una tua chiave API; ogni analisi ha un piccolo costo sul tuo account Anthropic.</string>
+    <string name="chiave_api">Chiave API Anthropic</string>
+    <string name="crea_chiave">Crea una chiave su console.anthropic.com</string>
+    <string name="modello_ai">Modello</string>
+    <string name="errore_chiave">Inserisci la chiave API per usare la stima da foto</string>
+    <string name="errore_salvataggio_chiave">Impossibile salvare la chiave in modo sicuro su questo dispositivo</string>
+    <string name="chiave_mancante">Chiave API mancante: inseriscila nelle impostazioni.</string>
+    <string name="stima_titolo">Stima CHO da foto</string>
+    <string name="stima_titolo_beta">Stima CHO da foto (beta)</string>
+    <string name="scatta_foto">Scatta una foto</string>
+    <string name="scegli_galleria">Scegli dalla galleria</string>
+    <string name="nessuna_fotocamera">Nessuna app fotocamera disponibile</string>
+    <string name="foto_non_leggibile">Impossibile aprire la foto</string>
+    <string name="foto_pasto">Foto del pasto</string>
+    <string name="indicazioni">Dettagli (facoltativo)</string>
+    <string name="indicazioni_esempio">es. pasta 80 g a crudo, mezza mela</string>
+    <string name="analizza">Analizza foto</string>
+    <string name="analizza_di_nuovo">Analizza di nuovo</string>
+    <string name="analisi_in_corso">Analisi in corso…</string>
+    <string name="cho_stimati">CHO stimati</string>
+    <string name="grammi">%1$s g</string>
+    <string name="grammi_cho">%1$s g CHO</string>
+    <string name="affidabilita_alta">Affidabilità alta</string>
+    <string name="affidabilita_media">Affidabilità media</string>
+    <string name="affidabilita_bassa">Affidabilità bassa</string>
+    <string name="usa_cho">Usa %1$s g di CHO</string>
+    <string name="cho_inseriti">CHO stimati inseriti: controlla il valore prima della dose</string>
+    <string name="avviso_stima">Stima indicativa generata dall\'intelligenza artificiale: controlla sempre porzioni e risultato prima di calcolare la dose. La foto viene inviata ad Anthropic solo quando premi Analizza.</string>
+
     <!-- Notifica -->
     <string name="canale_nome">Promemoria glicemia</string>
     <string name="notifica_titolo">Controlla la glicemia</string>

@@ -28,6 +28,13 @@ final class Prefs {
     static final String ARROTONDAMENTO = "arrotondamento";
     static final String COLORI_DINAMICI = "colori_dinamici";
 
+    /** Stima CHO da foto (beta). */
+    static final String FOTO_ATTIVA = "foto_attiva";
+    /** Chiave API Anthropic cifrata: leggerla con Segreti.chiaveApi(). */
+    static final String CHIAVE_API = "chiave_api";
+    static final String MODELLO_AI = "modello_ai";
+    static final String MODELLO_DEFAULT = "claude-opus-5-5";
+
     static final int MINUTI_DEFAULT = 120;
     static final float ARROTONDAMENTO_DEFAULT = 0.5f;
 
