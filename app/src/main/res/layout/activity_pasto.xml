@@ -131,6 +131,16 @@
                 android:layout_marginTop="12dp"
                 android:text="@string/nuovo_alimento"
                 app:icon="@drawable/ic_aggiungi" />
+
+            <Button
+                android:id="@+id/btn_cerca_online"
+                style="@style/Widget.Material3.Button.TextButton.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/cerca_online"
+                android:visibility="gone"
+                app:icon="@drawable/ic_globo" />
         </LinearLayout>
     </FrameLayout>
 

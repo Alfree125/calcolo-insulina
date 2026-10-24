@@ -1,6 +1,8 @@
 package com.calcoloinsulina.app;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -30,9 +33,13 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /** Calcolo dei CHO di un pasto componendolo dagli alimenti del database locale. */
 public class PastoActivity extends AppCompatActivity {
@@ -71,6 +78,7 @@ public class PastoActivity extends AppCompatActivity {
     private View gruppoNessunRisultato;
     private RecyclerView lista;
     private Button btnUsa;
+    private final ExecutorService rete = Executors.newSingleThreadExecutor();
     private boolean tastiera;
 
     @Override
@@ -93,8 +101,14 @@ public class PastoActivity extends AppCompatActivity {
 
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
+        // Ricerca online solo in modalita' sviluppatore
+        boolean sviluppatore = Prefs.get(this).getBoolean(Prefs.SVILUPPATORE, false);
+        toolbar.getMenu().findItem(R.id.menu_cerca_online).setVisible(sviluppatore);
+        findViewById(R.id.btn_cerca_online).setVisibility(sviluppatore ? View.VISIBLE : View.GONE);
+        findViewById(R.id.btn_cerca_online).setOnClickListener(v -> cercaOnline());
         toolbar.setOnMenuItemClickListener(item -> {
-            mostraDialogoAlimento(null, "");
+            if (item.getItemId() == R.id.menu_cerca_online) cercaOnline();
+            else mostraDialogoAlimento(null, "", null);
             return true;
         });
 
@@ -145,7 +159,7 @@ public class PastoActivity extends AppCompatActivity {
             }
         });
         findViewById(R.id.btn_nuovo_da_ricerca).setOnClickListener(
-                v -> mostraDialogoAlimento(null, inCerca.getText().toString().trim()));
+                v -> mostraDialogoAlimento(null, inCerca.getText().toString().trim(), null));
 
         btnUsa.setOnClickListener(v -> {
             for (Voce voce : pasto) db.segnaUso(voce.alimento.id);
@@ -304,8 +318,75 @@ public class PastoActivity extends AppCompatActivity {
         dialogo.show();
     }
 
-    /** Creazione (alimento null) o modifica/eliminazione di un alimento personale. */
-    private void mostraDialogoAlimento(DatabaseAlimenti.Alimento a, String nomeIniziale) {
+    /** Cerca il testo su Open Food Facts; dai risultati si crea un alimento personale. */
+    private void cercaOnline() {
+        String testo = inCerca.getText().toString().trim();
+        if (testo.isEmpty()) {
+            Toast.makeText(this, R.string.scrivi_prima, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        AlertDialog attesa = new MaterialAlertDialogBuilder(this)
+                .setMessage(R.string.ricerca_in_corso)
+                .setNegativeButton(R.string.annulla, null)
+                .show();
+        rete.execute(() -> {
+            List<RicercaOnline.Prodotto> trovati;
+            try {
+                trovati = RicercaOnline.cerca(this, testo);
+            } catch (IOException e) {
+                trovati = null;
+            }
+            List<RicercaOnline.Prodotto> risultato = trovati;
+            runOnUiThread(() -> {
+                if (isDestroyed() || !attesa.isShowing()) return;
+                attesa.dismiss();
+                mostraRisultatiOnline(testo, risultato);
+            });
+        });
+    }
+
+    /** prodotti null = ricerca fallita. */
+    private void mostraRisultatiOnline(String testo, List<RicercaOnline.Prodotto> prodotti) {
+        MaterialAlertDialogBuilder b = new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.risultati_online)
+                .setNeutralButton(R.string.cerca_su_google, (d, w) -> cercaSuGoogle(testo))
+                .setNegativeButton(R.string.annulla, null);
+        if (prodotti == null) {
+            b.setMessage(R.string.ricerca_errore);
+        } else if (prodotti.isEmpty()) {
+            b.setMessage(getString(R.string.ricerca_vuota, testo));
+        } else {
+            CharSequence[] righe = new CharSequence[prodotti.size()];
+            for (int i = 0; i < righe.length; i++) {
+                righe[i] = getString(R.string.prodotto_online, prodotti.get(i).nome,
+                        fmt.format(prodotti.get(i).cho100));
+            }
+            b.setItems(righe, (d, i) -> mostraDialogoAlimento(null, "", prodotti.get(i)));
+        }
+        b.show();
+    }
+
+    private void cercaSuGoogle(String testo) {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q="
+                    + URLEncoder.encode(getString(R.string.query_google, testo), "UTF-8"))));
+        } catch (ActivityNotFoundException | java.io.UnsupportedEncodingException e) {
+            Toast.makeText(this, R.string.nessun_browser, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        rete.shutdownNow();
+    }
+
+    /**
+     * Creazione (alimento null) o modifica/eliminazione di un alimento personale;
+     * {@code proposta} precompila un nuovo alimento con i dati trovati online.
+     */
+    private void mostraDialogoAlimento(DatabaseAlimenti.Alimento a, String nomeIniziale,
+                                       RicercaOnline.Prodotto proposta) {
         View vista = LayoutInflater.from(this).inflate(R.layout.dialog_alimento, null);
         TextInputLayout campoNome = vista.findViewById(R.id.campo_nome);
         TextInputLayout campoCho = vista.findViewById(R.id.campo_cho100);
@@ -319,6 +400,10 @@ public class PastoActivity extends AppCompatActivity {
             inCho.setText(fmt.format(a.cho100));
             if (a.porzione > 0) inPorzione.setText(fmt.format(a.porzione));
             inNomePorzione.setText(a.nomePorzione);
+        } else if (proposta != null) {
+            inNome.setText(proposta.nome);
+            inCho.setText(fmt.format(proposta.cho100));
+            if (proposta.porzione > 0) inPorzione.setText(fmt.format(proposta.porzione));
         } else {
             inNome.setText(nomeIniziale);
         }
@@ -417,7 +502,7 @@ public class PastoActivity extends AppCompatActivity {
             riga.itemView.setOnClickListener(v -> mostraDialogoGrammi(a, null));
             riga.itemView.setOnLongClickListener(v -> {
                 if (!a.personale) return false;
-                mostraDialogoAlimento(a, "");
+                mostraDialogoAlimento(a, "", null);
                 return true;
             });
         }

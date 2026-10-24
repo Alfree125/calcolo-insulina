@@ -100,6 +100,18 @@
     <string name="unita_ui">UI</string>
     <string name="dose_registrata">Dose di %1$s UI registrata</string>
 
+    <!-- Ricerca online (modalita' sviluppatore) -->
+    <string name="cerca_online">Cerca online</string>
+    <string name="cerca_su_google">Cerca su Google</string>
+    <string name="query_google">carboidrati per 100 g %1$s</string>
+    <string name="risultati_online">Open Food Facts</string>
+    <string name="ricerca_in_corso">Ricerca su Open Food Facts…</string>
+    <string name="ricerca_vuota">Nessun prodotto con i carboidrati trovato per «%1$s».</string>
+    <string name="ricerca_errore">Ricerca non riuscita: controlla la connessione a Internet.</string>
+    <string name="prodotto_online">%1$s · %2$s g CHO/100 g</string>
+    <string name="scrivi_prima">Scrivi prima nella ricerca l\'alimento da cercare</string>
+    <string name="nessun_browser">Nessun browser disponibile</string>
+
     <!-- Notifica -->
     <string name="canale_nome">Promemoria glicemia</string>
     <string name="notifica_titolo">Controlla la glicemia</string>

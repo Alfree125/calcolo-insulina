@@ -47,7 +47,7 @@ La correzione può essere negativa quando la glicemia è sotto l'obiettivo: in q
 
 <p align="center"><img src="docs/screenshots/pasto.png" width="260" alt="CHO del pasto"></p>
 
-L'icona con coltello e forchetta nel campo CHO apre il calcolo dei carboidrati del pasto. Funziona tutto sul telefono, senza Internet: l'app non ha il permesso di accesso alla rete.
+L'icona con coltello e forchetta nel campo CHO apre il calcolo dei carboidrati del pasto. Funziona tutto sul telefono, senza Internet; solo la ricerca online della modalità sviluppatore usa la rete.
 
 - Cerca un alimento (anche per sinonimo: "spaghetti" trova la pasta) e inserisci i grammi, oppure tocca la porzione tipica.
 - Aggiungi più alimenti: l'app somma i CHO e con **Usa** li inserisce nel campo CHO.
@@ -55,6 +55,7 @@ L'icona con coltello e forchetta nel campo CHO apre il calcolo dei carboidrati d
 - Con **Nuovo alimento** aggiungi i tuoi prodotti copiando i carboidrati per 100 g dall'etichetta. Tienili premuti nell'elenco per modificarli o eliminarli.
 - Gli alimenti che usi più spesso salgono in cima all'elenco.
 - **Modalità sviluppatore** (Impostazioni, sperimentale): registri le dosi fatte e il calcolo sottrae l'insulina ancora attiva, stimata con la curva di OpenAPS e la durata d'azione che scegli.
+- In modalità sviluppatore, **Cerca online** trova i prodotti su [Open Food Facts](https://it.openfoodfacts.org) e ne prende i carboidrati per 100 g, da salvare come alimento personale; **Cerca su Google** apre la stessa ricerca nel browser per un controllo.
 
 > I valori del database sono medie indicative: per i prodotti confezionati fa fede l'etichetta. Pesa gli alimenti quando puoi.
 

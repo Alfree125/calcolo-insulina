@@ -64,4 +64,6 @@ dependencies {
     implementation("androidx.core:core:1.19.1")
     implementation("androidx.recyclerview:recyclerview:1.4.0")
     testImplementation("junit:junit:4.13.2")
+    // org.json vero per i test JVM (quello di android.jar e' solo uno stub)
+    testImplementation("org.json:json:20240303")
 }
