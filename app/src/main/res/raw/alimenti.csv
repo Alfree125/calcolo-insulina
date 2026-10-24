@@ -1,0 +1,123 @@
+# Alimenti di base: nome;categoria;CHO disponibili per 100 g;porzione tipica (g);nome porzione;sinonimi per la ricerca
+# Valori medi indicativi, allineati alle etichette nutrizionali (carboidrati, fibra esclusa).
+# Per i prodotti confezionati fa fede l'etichetta: si possono aggiungere come alimenti personali.
+Pasta di semola (cruda);Pasta e cereali;71;80;1 porzione;spaghetti penne fusilli maccheroni rigatoni linguine farfalle secca
+Pasta di semola (cotta);Pasta e cereali;30;200;1 piatto;spaghetti penne fusilli maccheroni rigatoni lessata
+Pasta all'uovo (cruda);Pasta e cereali;67;80;1 porzione;tagliatelle fettuccine pappardelle lasagne sfoglia
+Pasta integrale (cruda);Pasta e cereali;64;80;1 porzione;spaghetti penne integrali
+Pasta senza glutine (cruda);Pasta e cereali;77;80;1 porzione;mais riso celiachia
+Gnocchi di patate;Pasta e cereali;33;200;1 piatto;gnocchi
+Ravioli / tortellini freschi;Pasta e cereali;43;125;1 porzione;ravioli tortellini cappelletti pasta ripiena
+Riso (crudo);Pasta e cereali;78;80;1 porzione;riso arborio carnaroli basmati risotto
+Riso (cotto);Pasta e cereali;28;180;1 porzione;riso bollito lessato
+Riso integrale (crudo);Pasta e cereali;74;80;1 porzione;riso integrale
+Couscous (crudo);Pasta e cereali;72;70;1 porzione;cuscus semola
+Couscous (cotto);Pasta e cereali;23;180;1 porzione;cuscus
+Farro (crudo);Pasta e cereali;67;70;1 porzione;farro
+Orzo perlato (crudo);Pasta e cereali;70;70;1 porzione;orzo
+Quinoa (cruda);Pasta e cereali;60;70;1 porzione;quinoa
+Polenta (cotta);Pasta e cereali;16;250;1 porzione;polenta mais
+Farina di mais;Pasta e cereali;75;70;1 porzione;polenta fioretto bramata
+Farina 00;Pasta e cereali;73;30;1 cucchiaio colmo;farina frumento grano tenero
+Pangrattato;Pasta e cereali;72;10;1 cucchiaio;pane grattugiato
+Fiocchi d'avena;Pasta e cereali;60;40;1 porzione;avena porridge
+Corn flakes;Pasta e cereali;84;30;1 porzione;cereali colazione fiocchi di mais
+Muesli;Pasta e cereali;64;40;1 porzione;cereali colazione
+Pane comune;Pane e prodotti da forno;52;40;1 fetta;pane bianco filone pagnotta casereccio
+Panino (rosetta);Pane e prodotti da forno;52;60;1 panino;michetta rosetta panino
+Pane integrale;Pane e prodotti da forno;43;40;1 fetta;pane integrale
+Pane in cassetta;Pane e prodotti da forno;47;25;1 fetta;pancarre tramezzino toast
+Baguette;Pane e prodotti da forno;55;50;1 pezzo;filone francese
+Pane carasau;Pane e prodotti da forno;75;25;1 sfoglia;carta musica
+Piadina;Pane e prodotti da forno;52;120;1 piadina;piadina romagnola
+Focaccia;Pane e prodotti da forno;45;100;1 pezzo;focaccia genovese
+Pizza margherita;Pane e prodotti da forno;32;300;1 pizza;pizza
+Pizza al taglio (rossa);Pane e prodotti da forno;38;150;1 trancio;pizza taglio pomodoro
+Fette biscottate;Pane e prodotti da forno;73;9;1 fetta;fette tostate
+Crackers;Pane e prodotti da forno;68;25;1 pacchetto;cracker salati
+Grissini;Pane e prodotti da forno;68;5;1 grissino;grissino
+Taralli;Pane e prodotti da forno;65;5;1 tarallo;taralli tarallini
+Gallette di riso;Pane e prodotti da forno;80;8;1 galletta;gallette mais
+Cornetto / brioche;Pane e prodotti da forno;46;50;1 cornetto;croissant brioche colazione
+Biscotti secchi;Pane e prodotti da forno;74;6;1 biscotto;biscotti oro saiwa
+Biscotti frollini;Pane e prodotti da forno;67;10;1 biscotto;biscotti frollini colazione
+Lasagne al forno;Piatti pronti;15;300;1 porzione;lasagna bolognese
+Risotto;Piatti pronti;22;250;1 piatto;risotto
+Pasta al pomodoro (condita);Piatti pronti;25;250;1 piatto;pasta sugo pomodoro
+Minestrone di verdure;Piatti pronti;6;300;1 piatto;zuppa verdure minestra
+Arancino / supplì;Piatti pronti;32;200;1 arancino;arancina suppli riso fritto
+Sushi (nigiri / uramaki);Piatti pronti;30;30;1 pezzo;sushi maki riso
+Cotoletta impanata;Piatti pronti;12;150;1 cotoletta;milanese impanato
+Bastoncini di pesce;Piatti pronti;16;25;1 bastoncino;pesce impanato
+Hamburger con panino;Piatti pronti;28;200;1 panino;hamburger burger
+Ceci (secchi);Legumi;47;50;1 porzione;ceci
+Ceci (lessati o in scatola);Legumi;15;150;1 porzione;ceci cotti
+Fagioli borlotti (secchi);Legumi;48;50;1 porzione;fagioli
+Fagioli (lessati o in scatola);Legumi;14;150;1 porzione;fagioli borlotti cannellini cotti
+Lenticchie (secche);Legumi;50;50;1 porzione;lenticchie
+Lenticchie (lessate);Legumi;17;150;1 porzione;lenticchie cotte
+Piselli (surgelati o in scatola);Legumi;8;100;1 porzione;piselli
+Fave (secche);Legumi;40;50;1 porzione;fave
+Fave (lessate);Legumi;14;150;1 porzione;fave cotte
+Fave fresche;Legumi;5;150;1 porzione;fave baccello
+Hummus;Legumi;12;50;2 cucchiai;crema di ceci
+Patate (lessate);Patate;17;200;1 porzione;patata bollita
+Patate al forno;Patate;25;200;1 porzione;patate arrosto
+Patatine fritte;Patate;33;150;1 porzione;patate fritte french fries
+Purè di patate;Patate;15;200;1 porzione;pure
+Patatine in busta;Patate;50;25;1 sacchetto piccolo;chips patatine
+Mela;Frutta;11;180;1 media;mela
+Pera;Frutta;10;160;1 media;pera
+Banana;Frutta;20;120;1 media sbucciata;banana
+Arancia;Frutta;8;150;1 media sbucciata;arancia
+Mandarino / clementina;Frutta;9;60;1 frutto;mandarino clementina
+Kiwi;Frutta;9;75;1 frutto;kiwi
+Fragole;Frutta;6;150;1 porzione;fragola
+Uva;Frutta;16;150;1 grappolo;uva
+Pesca;Frutta;8;150;1 media;pesca nettarina
+Albicocca;Frutta;8;40;1 frutto;albicocca
+Ciliegie;Frutta;10;150;1 porzione;ciliegia
+Anguria;Frutta;4;300;1 fetta;cocomero anguria
+Melone;Frutta;7;200;1 fetta;melone
+Ananas;Frutta;10;150;1 fetta;ananas
+Fichi;Frutta;11;50;1 fico;fico
+Prugne / susine;Frutta;10;40;1 frutto;prugna susina
+Cachi;Frutta;16;200;1 frutto;caco kaki
+Mirtilli / frutti di bosco;Frutta;8;100;1 porzione;mirtilli lamponi more frutti bosco
+Datteri secchi;Frutta;63;8;1 dattero;dattero
+Uvetta;Frutta;72;10;1 cucchiaio;uva passa sultanina
+Frutta secca a guscio;Frutta;5;30;1 manciata;noci mandorle nocciole pistacchi anacardi
+Latte (intero o parzialmente scremato);Latte e derivati;5;200;1 tazza;latte scremato
+Bevanda di soia;Latte e derivati;3;200;1 tazza;latte soia
+Bevanda di riso;Latte e derivati;10;200;1 tazza;latte riso
+Bevanda di avena;Latte e derivati;7;200;1 tazza;latte avena
+Yogurt bianco;Latte e derivati;5;125;1 vasetto;yogurt naturale
+Yogurt greco bianco;Latte e derivati;4;150;1 vasetto;yogurt greco
+Yogurt alla frutta;Latte e derivati;14;125;1 vasetto;yogurt frutta
+Formaggi stagionati e mozzarella;Latte e derivati;1;80;1 porzione;parmigiano grana mozzarella pecorino formaggio
+Ricotta;Latte e derivati;4;100;1 porzione;ricotta
+Gelato (creme);Latte e derivati;24;100;1 coppetta;gelato crema cioccolato fior di latte
+Gelato alla frutta / sorbetto;Latte e derivati;28;100;1 coppetta;sorbetto granita
+Budino;Latte e derivati;20;125;1 vasetto;budino dessert
+Carne, pesce e uova;Carne pesce uova;0;150;1 porzione;carne pollo manzo maiale tacchino pesce tonno salmone uova uovo bistecca
+Zucchero;Dolci;100;5;1 cucchiaino;zucchero saccarosio
+Miele;Dolci;80;10;1 cucchiaino;miele
+Marmellata / confettura;Dolci;60;20;1 cucchiaio;marmellata confettura
+Crema spalmabile alle nocciole;Dolci;57;15;1 cucchiaio;nutella crema cioccolato
+Cioccolato fondente (70%);Dolci;34;20;1 porzione;cioccolato fondente
+Cioccolato al latte;Dolci;56;20;1 porzione;cioccolato latte
+Torta margherita / ciambellone;Dolci;55;70;1 fetta;torta ciambella pan di spagna
+Crostata di marmellata;Dolci;58;80;1 fetta;crostata
+Tiramisù;Dolci;28;100;1 porzione;tiramisu
+Panettone;Dolci;55;80;1 fetta;panettone
+Pandoro;Dolci;57;80;1 fetta;pandoro
+Bibita zuccherata (cola, aranciata);Bevande;11;330;1 lattina;coca cola aranciata gassata
+Tè freddo zuccherato;Bevande;7;330;1 lattina;te freddo
+Succo d'arancia;Bevande;10;200;1 bicchiere;spremuta succo arancia
+Succo / nettare di frutta;Bevande;13;200;1 bicchiere;succo pesca pera albicocca nettare
+Bevanda energetica;Bevande;11;250;1 lattina;energy drink
+Birra;Bevande;3;330;1 bottiglia piccola;birra
+Bibita zero zuccheri;Bevande;0;330;1 lattina;zero light dietetica
+Ketchup;Condimenti e snack;24;15;1 cucchiaio;ketchup
+Pop-corn;Condimenti e snack;60;30;1 porzione;popcorn
+Arachidi;Condimenti e snack;8;30;1 manciata;arachidi noccioline

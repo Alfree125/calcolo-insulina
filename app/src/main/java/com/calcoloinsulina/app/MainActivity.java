@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -28,6 +30,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -44,8 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText inCho, inGlicemia;
     private TextInputLayout campoGlicemia;
-    private TextView outTotale, outArrotondato, outPasto, outExtra, testoPromemoria;
-    private View root, resultChips, cardPromemoria;
+    private TextView outTotale, outArrotondato, outPasto, outExtra, testoPromemoria, outIob, testoDosi;
+    private View root, resultChips, cardPromemoria, riquadroIob, cardDosi;
+    /** Dose proposta quando si registra un'iniezione (modalita' sviluppatore). */
+    private double doseSuggerita;
     private SharedPreferences prefs;
     private boolean coloriDinamici;
     private boolean compatto;
@@ -65,6 +70,16 @@ public class MainActivity extends AppCompatActivity {
     private final DecimalFormat fmt =
             new DecimalFormat("0.#", DecimalFormatSymbols.getInstance(Locale.ITALY));
 
+    /** CHO calcolati dagli alimenti del database locale. */
+    private final ActivityResultLauncher<Intent> calcolaPasto =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), r -> {
+                if (r.getResultCode() != RESULT_OK || r.getData() == null) return;
+                double cho = r.getData().getDoubleExtra(PastoActivity.EXTRA_CHO, -1);
+                if (cho < 0) return;
+                inCho.setText(fmt.format(cho));
+                Snackbar.make(root, R.string.cho_inseriti, Snackbar.LENGTH_LONG).show();
+            });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         prefs = Prefs.get(this);
@@ -80,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        Prefs.rimuoviDatiStimaFoto(this);
         setContentView(R.layout.activity_main);
 
         root = findViewById(R.id.root);
@@ -92,6 +108,11 @@ public class MainActivity extends AppCompatActivity {
         outExtra = findViewById(R.id.out_extra);
         resultChips = findViewById(R.id.result_chips);
         cardPromemoria = findViewById(R.id.card_promemoria);
+        riquadroIob = findViewById(R.id.riquadro_iob);
+        outIob = findViewById(R.id.out_iob);
+        cardDosi = findViewById(R.id.card_dosi);
+        testoDosi = findViewById(R.id.testo_dosi);
+        findViewById(R.id.btn_registra_dose).setOnClickListener(v -> registraDose());
         testoPromemoria = findViewById(R.id.testo_promemoria);
 
         if (savedInstanceState != null) {
@@ -134,6 +155,10 @@ public class MainActivity extends AppCompatActivity {
         };
         inCho.addTextChangedListener(ricalcola);
         inGlicemia.addTextChangedListener(ricalcola);
+
+        TextInputLayout campoCho = findViewById(R.id.campo_cho);
+        campoCho.setEndIconOnClickListener(
+                v -> calcolaPasto.launch(new Intent(this, PastoActivity.class)));
 
         campoGlicemia.setEndIconOnClickListener(v -> {
             if (statoGlicemia != null) Snackbar.make(root, statoGlicemia, Snackbar.LENGTH_SHORT).show();
@@ -186,19 +211,30 @@ public class MainActivity extends AppCompatActivity {
         outPasto.setText(r.uiPasto == null ? getString(R.string.placeholder) : fmt.format(r.uiPasto));
         outExtra.setText(r.uiExtra == null ? getString(R.string.placeholder) : conSegno(r.uiExtra));
 
+        // Modalita' sviluppatore: si sottrae l'insulina ancora attiva delle dosi registrate.
+        // shortcut: il valore si aggiorna a ogni modifica o ritorno sulla schermata, non minuto per minuto
+        boolean sviluppatore = prefs.getBoolean(Prefs.SVILUPPATORE, false);
+        double iob = sviluppatore ? InsulinaAttiva.calcola(prefs, System.currentTimeMillis()) : 0;
+        Double totale = r.totale == null ? null : r.totale - iob;
+        riquadroIob.setVisibility(sviluppatore ? View.VISIBLE : View.GONE);
+        cardDosi.setVisibility(sviluppatore ? View.VISIBLE : View.GONE);
+        outIob.setText(iob > 0.05 ? conSegno(-iob) : "0");
+        testoDosi.setText(getString(R.string.insulina_attiva_ora, fmt.format(iob)));
+
         float passo = prefs.getFloat(Prefs.ARROTONDAMENTO, Prefs.ARROTONDAMENTO_DEFAULT);
         String nota;
-        if (r.totale == null) {
+        doseSuggerita = 0;
+        if (totale == null) {
             outTotale.setText(R.string.placeholder);
             nota = getString(R.string.inserisci_valori);
-        } else if (r.totale < 0) {
+        } else if (totale < 0) {
             outTotale.setText(conUnita("0"));
-            nota = getString(R.string.nessun_bolo, fmt.format(r.totale));
+            nota = getString(R.string.nessun_bolo, fmt.format(totale));
         } else {
-            outTotale.setText(conUnita(fmt.format(r.totale)));
+            outTotale.setText(conUnita(fmt.format(totale)));
+            doseSuggerita = passo > 0 ? InsulinCalculator.arrotonda(totale, passo) : totale;
             nota = passo > 0
-                    ? getString(R.string.arrotondato, fmt.format(passo),
-                    fmt.format(InsulinCalculator.arrotonda(r.totale, passo)))
+                    ? getString(R.string.arrotondato, fmt.format(passo), fmt.format(doseSuggerita))
                     : null;
         }
         if (glicemia != null && r.uiExtra == null) nota = getString(R.string.glicemia_non_valida);
@@ -270,6 +306,32 @@ public class MainActivity extends AppCompatActivity {
                     DateFormat.getTimeFormat(this).format(new Date(alle))));
             cardPromemoria.setVisibility(View.VISIBLE);
         }
+    }
+
+    /** Registra un'iniezione: da qui in poi conta come insulina attiva. */
+    private void registraDose() {
+        View vista = getLayoutInflater().inflate(R.layout.dialog_dose, null);
+        EditText inDose = vista.findViewById(R.id.in_dose);
+        if (doseSuggerita > 0) inDose.setText(fmt.format(doseSuggerita));
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.registra_dose)
+                .setView(vista)
+                .setPositiveButton(R.string.registra, (d, w) -> {
+                    Double dose = parse(inDose);
+                    if (dose == null || dose <= 0) return;
+                    InsulinaAttiva.registra(prefs, dose, System.currentTimeMillis());
+                    azzera();
+                    aggiorna();
+                    Snackbar.make(root, getString(R.string.dose_registrata, fmt.format(dose)),
+                                    Snackbar.LENGTH_LONG)
+                            .setAction(R.string.annulla, v -> {
+                                InsulinaAttiva.annullaUltima(prefs);
+                                aggiorna();
+                            })
+                            .show();
+                })
+                .setNegativeButton(R.string.annulla, null)
+                .show();
     }
 
     private void azzera() {

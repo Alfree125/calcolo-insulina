@@ -32,6 +32,9 @@
         style="@style/Campo"
         android:layout_marginTop="4dp"
         android:hint="@string/cho_totali"
+        app:endIconContentDescription="@string/calcola_cho_pasto"
+        app:endIconDrawable="@drawable/ic_pasto"
+        app:endIconMode="custom"
         app:suffixText="@string/unit_g">
 
         <com.google.android.material.textfield.TextInputEditText

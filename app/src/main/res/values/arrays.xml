@@ -24,4 +24,21 @@
         <item>1 UI</item>
         <item>Nessuno</item>
     </string-array>
+
+    <string-array name="durate_etichette">
+        <item>3 ore</item>
+        <item>3 ore e 30 minuti</item>
+        <item>4 ore</item>
+        <item>4 ore e 30 minuti</item>
+        <item>5 ore</item>
+        <item>6 ore</item>
+    </string-array>
+    <integer-array name="durate_minuti">
+        <item>180</item>
+        <item>210</item>
+        <item>240</item>
+        <item>270</item>
+        <item>300</item>
+        <item>360</item>
+    </integer-array>
 </resources>

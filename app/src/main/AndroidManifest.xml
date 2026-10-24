@@ -33,6 +33,11 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
+        <activity
+            android:name=".PastoActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
         <receiver
             android:name=".PromemoriaReceiver"
             android:exported="false">

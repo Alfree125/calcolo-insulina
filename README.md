@@ -43,6 +43,21 @@ La correzione può essere negativa quando la glicemia è sotto l'obiettivo: in q
 - Tema chiaro e scuro, colori dinamici su Android 12+.
 - Layout a due colonne su tablet, pieghevoli e in orizzontale.
 
+## CHO del pasto dal database alimenti
+
+<p align="center"><img src="docs/screenshots/pasto.png" width="260" alt="CHO del pasto"></p>
+
+L'icona con coltello e forchetta nel campo CHO apre il calcolo dei carboidrati del pasto. Funziona tutto sul telefono, senza Internet: l'app non ha il permesso di accesso alla rete.
+
+- Cerca un alimento (anche per sinonimo: "spaghetti" trova la pasta) e inserisci i grammi, oppure tocca la porzione tipica.
+- Aggiungi più alimenti: l'app somma i CHO e con **Usa** li inserisce nel campo CHO.
+- Il database locale (SQLite) contiene circa 120 alimenti comuni italiani, con i carboidrati per 100 g e una porzione tipica ([elenco](app/src/main/res/raw/alimenti.csv)).
+- Con **Nuovo alimento** aggiungi i tuoi prodotti copiando i carboidrati per 100 g dall'etichetta. Tienili premuti nell'elenco per modificarli o eliminarli.
+- Gli alimenti che usi più spesso salgono in cima all'elenco.
+- **Modalità sviluppatore** (Impostazioni, sperimentale): registri le dosi fatte e il calcolo sottrae l'insulina ancora attiva, stimata con la curva di OpenAPS e la durata d'azione che scegli.
+
+> I valori del database sono medie indicative: per i prodotti confezionati fa fede l'etichetta. Pesa gli alimenti quando puoi.
+
 ## Compilare dai sorgenti
 
 Servono JDK 17 e l'Android SDK con la piattaforma `android-37.0`.
