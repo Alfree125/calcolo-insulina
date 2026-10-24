@@ -11,6 +11,7 @@
     <string name="pasto">Pasto</string>
     <string name="azzera">Azzera</string>
     <string name="cho_totali">CHO totali</string>
+    <string name="avviso_diabetologo">Strumento di supporto al calcolo: segui sempre le indicazioni del tuo diabetologo.</string>
     <string name="glicemia_pre">Glicemia pre pasto</string>
     <string name="annulla">Annulla</string>
     <string name="promemoria_alle">Promemoria glicemia alle %1$s</string>
