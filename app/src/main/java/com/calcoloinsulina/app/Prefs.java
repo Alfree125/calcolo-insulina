@@ -30,6 +30,12 @@ final class Prefs {
     static final String ARROTONDAMENTO = "arrotondamento";
     static final String COLORI_DINAMICI = "colori_dinamici";
 
+    /** Modalita' sviluppatore: sottrae l'insulina attiva delle dosi registrate. */
+    static final String SVILUPPATORE = "sviluppatore";
+    /** Durata d'azione dell'insulina in minuti. */
+    static final String DURATA_INSULINA = "durata_insulina";
+    static final int DURATA_INSULINA_DEFAULT = 240;
+
     static final int MINUTI_DEFAULT = 120;
     static final float ARROTONDAMENTO_DEFAULT = 0.5f;
 

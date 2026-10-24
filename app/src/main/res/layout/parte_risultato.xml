@@ -83,6 +83,22 @@
                     style="@style/RiquadroEtichetta"
                     android:text="@string/ui_extra" />
             </LinearLayout>
+
+            <!-- Modalita' sviluppatore: insulina ancora attiva, sottratta dal totale -->
+            <LinearLayout
+                android:id="@+id/riquadro_iob"
+                style="@style/Riquadro"
+                android:layout_marginStart="12dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/out_iob"
+                    style="@style/RiquadroValore" />
+
+                <TextView
+                    style="@style/RiquadroEtichetta"
+                    android:text="@string/insulina_attiva" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -57,21 +57,15 @@ Fagioli (lessati o in scatola);Legumi;14;150;1 porzione;fagioli borlotti cannell
 Lenticchie (secche);Legumi;50;50;1 porzione;lenticchie
 Lenticchie (lessate);Legumi;17;150;1 porzione;lenticchie cotte
 Piselli (surgelati o in scatola);Legumi;8;100;1 porzione;piselli
+Fave (secche);Legumi;40;50;1 porzione;fave
+Fave (lessate);Legumi;14;150;1 porzione;fave cotte
+Fave fresche;Legumi;5;150;1 porzione;fave baccello
 Hummus;Legumi;12;50;2 cucchiai;crema di ceci
 Patate (lessate);Patate;17;200;1 porzione;patata bollita
 Patate al forno;Patate;25;200;1 porzione;patate arrosto
 Patatine fritte;Patate;33;150;1 porzione;patate fritte french fries
 Purè di patate;Patate;15;200;1 porzione;pure
 Patatine in busta;Patate;50;25;1 sacchetto piccolo;chips patatine
-Mais dolce (in scatola);Verdure;15;80;1 porzione;mais granoturco
-Carote;Verdure;7;100;1 porzione;carota
-Zucca;Verdure;4;200;1 porzione;zucca
-Cipolla;Verdure;6;50;1 piccola;cipolla
-Pomodori;Verdure;3;150;1 porzione;pomodoro
-Passata di pomodoro;Verdure;5;100;1 porzione;sugo pomodoro passato
-Peperoni;Verdure;4;150;1 porzione;peperone
-Barbabietola rossa;Verdure;8;100;1 porzione;rapa rossa
-Verdure a foglia e ortaggi;Verdure;2;200;1 porzione;insalata lattuga spinaci zucchine melanzane broccoli cavolfiore fagiolini finocchi funghi carciofi bieta cavolo
 Mela;Frutta;11;180;1 media;mela
 Pera;Frutta;10;160;1 media;pera
 Banana;Frutta;20;120;1 media sbucciata;banana
@@ -106,7 +100,6 @@ Gelato (creme);Latte e derivati;24;100;1 coppetta;gelato crema cioccolato fior d
 Gelato alla frutta / sorbetto;Latte e derivati;28;100;1 coppetta;sorbetto granita
 Budino;Latte e derivati;20;125;1 vasetto;budino dessert
 Carne, pesce e uova;Carne pesce uova;0;150;1 porzione;carne pollo manzo maiale tacchino pesce tonno salmone uova uovo bistecca
-Prosciutto e salumi;Carne pesce uova;1;50;1 porzione;prosciutto crudo cotto salame bresaola mortadella
 Zucchero;Dolci;100;5;1 cucchiaino;zucchero saccarosio
 Miele;Dolci;80;10;1 cucchiaino;miele
 Marmellata / confettura;Dolci;60;20;1 cucchiaio;marmellata confettura

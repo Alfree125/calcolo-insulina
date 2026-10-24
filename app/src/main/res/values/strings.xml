@@ -86,6 +86,19 @@
     <string name="errore_nome">Inserisci un nome</string>
     <string name="errore_cho100">Valore tra 0 e 100</string>
 
+    <!-- Modalita' sviluppatore: insulina attiva -->
+    <string name="sviluppatore">Modalità sviluppatore</string>
+    <string name="insulina_attiva_titolo">Insulina attiva</string>
+    <string name="insulina_attiva_testo">Sperimentale: registra le dosi fatte e sottrae dal calcolo l\'insulina ancora in circolo</string>
+    <string name="durata_insulina">Durata d\'azione dell\'insulina</string>
+    <string name="insulina_attiva">Insulina attiva</string>
+    <string name="insulina_attiva_ora">Insulina attiva ora: %1$s UI</string>
+    <string name="registra_dose">Registra dose</string>
+    <string name="registra">Registra</string>
+    <string name="dose_iniettata">Dose iniettata</string>
+    <string name="unita_ui">UI</string>
+    <string name="dose_registrata">Dose di %1$s UI registrata</string>
+
     <!-- Notifica -->
     <string name="canale_nome">Promemoria glicemia</string>
     <string name="notifica_titolo">Controlla la glicemia</string>

@@ -26,7 +26,7 @@ final class DatabaseAlimenti extends SQLiteOpenHelper {
 
     private static final String NOME = "alimenti.db";
     /** Da aumentare quando cambia alimenti.csv: gli alimenti di base vengono ricaricati. */
-    private static final int VERSIONE = 1;
+    private static final int VERSIONE = 2;
 
     private static final String TABELLA = "alimenti";
     private static final String COLONNE =

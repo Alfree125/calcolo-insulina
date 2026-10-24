@@ -51,9 +51,10 @@ Nelle versioni beta (`2.1.0-beta.x`, pagina [Releases](https://github.com/Alfree
 
 - Cerca un alimento (anche per sinonimo: "spaghetti" trova la pasta) e inserisci i grammi, oppure tocca la porzione tipica.
 - Aggiungi più alimenti: l'app somma i CHO e con **Usa** li inserisce nel campo CHO.
-- Il database locale (SQLite) contiene circa 130 alimenti comuni italiani, con i carboidrati per 100 g e una porzione tipica ([elenco](app/src/main/res/raw/alimenti.csv)).
+- Il database locale (SQLite) contiene circa 120 alimenti comuni italiani, con i carboidrati per 100 g e una porzione tipica ([elenco](app/src/main/res/raw/alimenti.csv)).
 - Con **Nuovo alimento** aggiungi i tuoi prodotti copiando i carboidrati per 100 g dall'etichetta. Tienili premuti nell'elenco per modificarli o eliminarli.
 - Gli alimenti che usi più spesso salgono in cima all'elenco.
+- **Modalità sviluppatore** (Impostazioni, sperimentale): registri le dosi fatte e il calcolo sottrae l'insulina ancora attiva, stimata con la curva di OpenAPS e la durata d'azione che scegli.
 
 > I valori del database sono medie indicative: per i prodotti confezionati fa fede l'etichetta. Pesa gli alimenti quando puoi.
 

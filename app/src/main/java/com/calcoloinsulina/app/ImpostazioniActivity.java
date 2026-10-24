@@ -52,10 +52,12 @@ public class ImpostazioniActivity extends AppCompatActivity {
     private View root;
     private TextInputLayout campoRapporto, campoFattore, campoTarget, campoIntervallo;
     private EditText inRapporto, inFattore, inTarget;
-    private MaterialSwitch switchPromemoria, switchColori;
-    private MaterialAutoCompleteTextView sceltaIntervallo, sceltaArrotondamento;
+    private MaterialSwitch switchPromemoria, switchColori, switchSviluppatore;
+    private MaterialAutoCompleteTextView sceltaIntervallo, sceltaArrotondamento, sceltaDurata;
+    private View campoDurata;
+    private int[] minutiDurate;
     private int[] minutiIntervalli;
-    private int indiceIntervallo, indiceArrotondamento;
+    private int indiceIntervallo, indiceArrotondamento, indiceDurata;
 
     private final DecimalFormat fmtParam =
             new DecimalFormat("0.##", DecimalFormatSymbols.getInstance(Locale.ITALY));
@@ -89,6 +91,10 @@ public class ImpostazioniActivity extends AppCompatActivity {
         inTarget = findViewById(R.id.in_target);
         switchPromemoria = findViewById(R.id.switch_promemoria);
         switchColori = findViewById(R.id.switch_colori);
+        switchSviluppatore = findViewById(R.id.switch_sviluppatore);
+        sceltaDurata = findViewById(R.id.scelta_durata);
+        campoDurata = findViewById(R.id.campo_durata);
+        minutiDurate = getResources().getIntArray(R.array.durate_minuti);
         sceltaIntervallo = findViewById(R.id.scelta_intervallo);
         sceltaArrotondamento = findViewById(R.id.scelta_arrotondamento);
         minutiIntervalli = getResources().getIntArray(R.array.intervalli_minuti);
@@ -117,6 +123,7 @@ public class ImpostazioniActivity extends AppCompatActivity {
         else {
             indiceIntervallo = savedInstanceState.getInt("intervallo");
             indiceArrotondamento = savedInstanceState.getInt("arrotondamento");
+            indiceDurata = savedInstanceState.getInt("durata");
         }
 
         rimuoviErroreAllaModifica(inRapporto, campoRapporto);
@@ -125,6 +132,11 @@ public class ImpostazioniActivity extends AppCompatActivity {
 
         sceltaIntervallo.setOnItemClickListener((p, v, pos, id) -> indiceIntervallo = pos);
         sceltaArrotondamento.setOnItemClickListener((p, v, pos, id) -> indiceArrotondamento = pos);
+        sceltaDurata.setOnItemClickListener((p, v, pos, id) -> indiceDurata = pos);
+        findViewById(R.id.riga_sviluppatore).setOnClickListener(v -> switchSviluppatore.toggle());
+        switchSviluppatore.setOnCheckedChangeListener((b, attivo) ->
+                campoDurata.setVisibility(attivo ? View.VISIBLE : View.GONE));
+        campoDurata.setVisibility(switchSviluppatore.isChecked() ? View.VISIBLE : View.GONE);
 
         findViewById(R.id.riga_promemoria).setOnClickListener(v -> switchPromemoria.toggle());
         switchPromemoria.setOnCheckedChangeListener((b, attivo) -> {
@@ -158,6 +170,7 @@ public class ImpostazioniActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putInt("intervallo", indiceIntervallo);
         outState.putInt("arrotondamento", indiceArrotondamento);
+        outState.putInt("durata", indiceDurata);
     }
 
     private void caricaValori() {
@@ -187,6 +200,13 @@ public class ImpostazioniActivity extends AppCompatActivity {
         String[] arrotondamenti = getResources().getStringArray(R.array.arrotondamento_etichette);
         sceltaIntervallo.setText(intervalli[indiceIntervallo], false);
         sceltaArrotondamento.setText(arrotondamenti[indiceArrotondamento], false);
+
+        switchSviluppatore.setChecked(prefs.getBoolean(Prefs.SVILUPPATORE, false));
+        int durata = prefs.getInt(Prefs.DURATA_INSULINA, Prefs.DURATA_INSULINA_DEFAULT);
+        for (int i = 0; i < minutiDurate.length; i++) {
+            if (minutiDurate[i] == durata) indiceDurata = i;
+        }
+        sceltaDurata.setText(getResources().getStringArray(R.array.durate_etichette)[indiceDurata], false);
     }
 
     private void salva() {
@@ -222,6 +242,8 @@ public class ImpostazioniActivity extends AppCompatActivity {
                 .putInt(Prefs.PROMEMORIA_MINUTI, minutiIntervalli[indiceIntervallo])
                 .putFloat(Prefs.ARROTONDAMENTO, PASSI_ARROTONDAMENTO[indiceArrotondamento])
                 .putBoolean(Prefs.COLORI_DINAMICI, switchColori.isChecked())
+                .putBoolean(Prefs.SVILUPPATORE, switchSviluppatore.isChecked())
+                .putInt(Prefs.DURATA_INSULINA, minutiDurate[indiceDurata])
                 .putBoolean(Prefs.CONFIGURATO, true)
                 .apply();
         if (!promemoria) Promemoria.annulla(this);
