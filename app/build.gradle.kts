@@ -24,8 +24,8 @@ android {
         applicationId = "com.calcoloinsulina.app"
         minSdk = 23 // Android 6.0
         targetSdk = 37
-        versionCode = 3
-        versionName = "2.0.1"
+        versionCode = 7
+        versionName = "2.0.2"
     }
 
     signingConfigs {
